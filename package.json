@@ -5,5 +5,10 @@
   "main": "dist/index.js",
   "repository": "https://github.com/OmarMAttia7/storefront-deployment.git",
   "author": "Omar Attia <omarmattia97@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "backend:install": "cd express-storefront-backend && $npm_execpath install && cd ..",
+    "backend:build": "cd express-storefront-backend && $npm_execpath run build:prod && cd ..",
+    "backend:deploy": "echo \"not yet implemented\""
+  }
 }
