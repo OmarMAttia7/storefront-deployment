@@ -9,6 +9,7 @@
   "scripts": {
     "backend:install": "cd express-storefront-backend && $npm_execpath install && cd ..",
     "backend:build": "cd express-storefront-backend && $npm_execpath run build:prod && cd ..",
+    "backend:test": "cd express-storefront-backend && $npm_execpath run test",
     "backend:deploy": "echo \"not yet implemented\""
   }
 }
