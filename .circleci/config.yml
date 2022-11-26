@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.3
 jobs:
-  build:
+  test_and_build:
     docker:
       # the base image can run most needed actions with orbs
       - image: cimg/base:stable
@@ -21,6 +21,8 @@ jobs:
       # - node/install-packages:
       #     pkg-manager: yarn
       #     app-dir: ./reactnd-contacts-complete
+      # test the backend
+      - run: yarn run backend:test
       # build the server
       - run: yarn run backend:build
       # # build the UI
@@ -28,5 +30,5 @@ jobs:
 workflows:
   main:
     jobs:
-      - build
+      - test_and_build
 # VS Code Extension Version: 1.1.1
