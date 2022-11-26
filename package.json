@@ -1,0 +1,9 @@
+{
+  "name": "storefront-deployment",
+  "version": "1.0.0",
+  "description": "Full-Stack deployment project.",
+  "main": "dist/index.js",
+  "repository": "https://github.com/OmarMAttia7/storefront-deployment.git",
+  "author": "Omar Attia <omarmattia97@gmail.com>",
+  "license": "MIT"
+}
