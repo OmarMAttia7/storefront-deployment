@@ -1,3 +1,4 @@
 [submodule "express-storefront-backend"]
 	path = express-storefront-backend
 	url = https://github.com/OmarMAttia7/express-storefront-backend
+	update = merge
