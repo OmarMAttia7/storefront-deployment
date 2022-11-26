@@ -1,0 +1,31 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.0.3
+jobs:
+  build:
+    docker:
+      # the base image can run most needed actions with orbs
+      - image: cimg/base:stable
+    steps:
+      # install yarn
+      - node/install:
+          install-yarn: true
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
+      # install server dependencies
+      - node/install-packages:
+          pkg-manager: yarn
+          app-dir: ./express-storefront-backend
+      # - node/install-packages:
+      #     pkg-manager: yarn
+      #     app-dir: ./reactnd-contacts-complete
+      # build the server
+      - run: yarn run backend:build
+      # # build the UI
+      # - run: yarn run frontend:build
+workflows:
+  main:
+    jobs:
+      - build
+# VS Code Extension Version: 1.1.1
