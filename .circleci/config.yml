@@ -42,11 +42,14 @@ jobs:
           command: |
               eb use ${EB_ENV_NAME}
               eb deploy ${EB_ENV_NAME}
+              eb setenv DB_HOST=${DB_HOST} DB_NAME={DB_NAME} DB_USERNAME=${DB_USERNAME} DB_PASSWORD=${DB_PASSWORD}
               eb status
 workflows:
   main:
     jobs:
       - test_and_build
-      - deploy
+      - deploy:
+          requires:
+            - test_and_build
 
 # VS Code Extension Version: 1.1.1
