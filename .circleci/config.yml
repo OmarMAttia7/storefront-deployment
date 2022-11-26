@@ -40,6 +40,7 @@ jobs:
       - eb/setup
       - run:
           command: |
+              eb init ${EB_APP_NAME} --platform "Node.js 16 running on 64bit Amazon Linux 2"
               eb use ${EB_ENV_NAME}
               eb deploy ${EB_ENV_NAME}
               eb setenv DB_HOST=${DB_HOST} DB_NAME={DB_NAME} DB_USERNAME=${DB_USERNAME} DB_PASSWORD=${DB_PASSWORD}
