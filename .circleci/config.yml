@@ -47,6 +47,6 @@ workflows:
   main:
     jobs:
       - test_and_build
-      - deploy:
+      - deploy
 
 # VS Code Extension Version: 1.1.1
