@@ -7,7 +7,7 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      # install yarn
+      # install yarn and node
       - node/install:
           install-yarn: true
           node-version: "16.18.0"
@@ -19,39 +19,58 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
           app-dir: ./express-storefront-backend
+      # install frontend dependencies
+      - node/install-packages:
+          pkg-manager: yarn
+          app-dir: ./storefront-frontend
       # test the backend
       - run: yarn run backend:test
+      # test the frontend
+      - run: yarn run frontend:test
       # build the backend
       - run: yarn run backend:build
+      # build the frontend
+      - run: yarn run frontend:build
   deploy:
     docker:
       - image: cimg/base:stable
     steps:
+      # install yarn and node
       - node/install:
           install-yarn: true
           node-version: "16.18.0"
+      # get source code from git
       - checkout
       - run: git submodule sync
       - run: git submodule update --init
+      # install dependencies
       - node/install-packages:
           pkg-manager: yarn
           app-dir: ./express-storefront-backend
+      - node/install-packages:
+          pkg-manager: yarn
+          app-dir: ./storefront-frontend
+      # build the application
       - run: yarn run backend:build
+      - run: yarn run frontend:build
+      # setup elastic beanstalk cli if needed
       - eb/setup
+      # deploy backend and set environment variables
       - run:
           command: |
               cd express-storefront-backend
               eb init ${EB_APP_NAME} --region ${AWS_DEFAULT_REGION} --platform "Node.js 16 running on 64bit Amazon Linux 2"
               eb use ${EB_ENV_NAME}
               eb deploy ${EB_ENV_NAME}
-              eb setenv DB_HOST=${DB_HOST} DB_NAME={DB_NAME} DB_USERNAME=${DB_USERNAME} DB_PASSWORD=${DB_PASSWORD}
+              eb setenv DB_HOST=${DB_HOST} DB_NAME=${DB_NAME} DB_USERNAME=${DB_USERNAME} DB_PASSWORD=${DB_PASSWORD} SALT_ROUNDS=${SALT_ROUNDS} BCRYPT_SECRET=${BCRYPT_SECRET} JWT_SECRET=${JWT_SECRET}
               eb status
+          name: "Deploy Backend and Set Environment Variables"
 workflows:
   main:
     jobs:
       - test_and_build
-      - deploy:
-          requires:
-            - test_and_build
+      # - deploy:
+      #     requires:
+      #       - test_and_build
 
-# VS Code Extension Version: 1.1.1
+# VS Code Extension Version: 1.2.0

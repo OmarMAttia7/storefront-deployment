@@ -8,8 +8,10 @@
   "license": "MIT",
   "scripts": {
     "backend:install": "cd express-storefront-backend && $npm_execpath install && cd ..",
-    "backend:build": "cd express-storefront-backend && $npm_execpath run build:prod && cd ..",
-    "backend:test": "cd express-storefront-backend && $npm_execpath run test",
-    "backend:deploy": "echo \"not yet implemented\""
+    "backend:build": "cd express-storefront-backend && $npm_execpath run build && cd ..",
+    "backend:test": "cd express-storefront-backend && $npm_execpath run test && cd ..",
+    "frontend:install": "cd storefront-frontend && $npm_execpath install && cd ..",
+    "frontend:build": "cd storefront-frontend && $npm_execpath run build",
+    "frontend:test": "cd storefront-frontend && $npm_execpath run test"
   }
 }
