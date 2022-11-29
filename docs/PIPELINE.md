@@ -1,8 +1,9 @@
 # The Pipeline
 
-The pipeline is run with CircleCI and consists of two jobs:
+The pipeline is run with CircleCI and consists of three jobs:
 
 - [Test and Build](#test-and-build)
+- [Hold](#hold)
 - [Deploy](#deploy)
 
 ## Test and Build
@@ -14,9 +15,15 @@ The pipeline is run with CircleCI and consists of two jobs:
 - Run tests for backend and frontend
 - Build the application
 
+## Hold
+
+Requires test & build job to run and succeed
+
+- Wait for approval
+
 ## Deploy
 
-Requires previous job to run and succeed first
+Requires the hold job to be approved
 
 - Create docker image
 - Install NodeJS and Yarn
@@ -25,6 +32,6 @@ Requires previous job to run and succeed first
 - Build the application
 - Deploy the application
 
-The difference between the jobs is that no tests are run in the deploy job and it needs the test and build job to run first
+The difference between the test & build and deploy job is that no tests are run in the deploy job and it needs the test & build job to run first
 
 ![Diagram](../pipeline-diagram.png)
