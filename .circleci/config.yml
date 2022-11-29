@@ -59,26 +59,35 @@ jobs:
       # deploy backend and set environment variables
       - run:
           command: |
-              cd express-storefront-backend
-              eb init ${EB_APP_NAME} --region ${AWS_DEFAULT_REGION} --platform "Node.js 16 running on 64bit Amazon Linux 2"
-              eb use ${EB_ENV_NAME}
-              eb deploy ${EB_ENV_NAME}
-              eb setenv DB_HOST=${DB_HOST} DB_NAME=${DB_NAME} DB_USERNAME=${DB_USERNAME} DB_PASSWORD=${DB_PASSWORD} SALT_ROUNDS=${SALT_ROUNDS} BCRYPT_SECRET=${BCRYPT_SECRET} JWT_SECRET=${JWT_SECRET}
-              eb status
+            cd express-storefront-backend
+            eb init ${EB_APP_NAME} --region ${AWS_DEFAULT_REGION} --platform "Node.js 16 running on 64bit Amazon Linux 2"
+            eb use ${EB_ENV_NAME}
+            eb deploy ${EB_ENV_NAME}
+            eb setenv DB_HOST=${DB_HOST} DB_NAME=${DB_NAME} DB_USERNAME=${DB_USERNAME} DB_PASSWORD=${DB_PASSWORD} SALT_ROUNDS=${SALT_ROUNDS} BCRYPT_SECRET=${BCRYPT_SECRET} JWT_SECRET=${JWT_SECRET}
+            eb status
           name: "Deploy Backend and Set Environment Variables"
       # setup the aws cli
       - aws/setup
+      # deploy the frontend
       - run:
           command: |
-              cd storefront-frontend
-              aws s3 cp --acl public-read --cache-control="max-age=0, no-cache, no-store, must-revalidate" ./dist/index.html ${S3_FRONTEND_BUCKET}
-              aws s3 cp --recursive --acl public-read ./dist ${S3_FRONTEND_BUCKET}
+            cd storefront-frontend
+            aws s3 cp --acl public-read --cache-control="max-age=0, no-cache, no-store, must-revalidate" ./dist/index.html ${S3_FRONTEND_BUCKET}
+            aws s3 cp --recursive --acl public-read ./dist ${S3_FRONTEND_BUCKET}
+          name: "Deploy the Frontend"
 workflows:
   main:
     jobs:
       - test_and_build
-      - deploy:
+      - hold:
+          filters:
+            branches:
+              only:
+                - main
+          type: approval
           requires:
             - test_and_build
-
+      - deploy:
+          requires:
+            - hold
 # VS Code Extension Version: 1.2.0
