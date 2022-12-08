@@ -1,19 +1,20 @@
 # CI/CD Deployment Project
 
-This is a submission for udacity & fwd's full stack advanced web development nanodegree
+Automated testing, building and deployment of a full-stack NodeJS application.
+This was originally a submission for Udacity's Full-Stack Advanced Web Development Nanodegree's final project.
 
 ## Table of Contents
 
-- [Frontend Application Link](#frontend-application-link)
+- [Links](#links)
 - [AWS Screenshots](#aws-screenshots)
 - [CircleCI Screenshots](#circleci-screenshots)
 - [AWS Diagram](#aws-diagram)
 - [Pipeline Diagram](#pipeline-diagram)
-- [Documentation] (#documentation)
+- [Docs] (#docs)
 
-## Frontend Application Link
+## Links
 
-You can follow this [link](http://storefront-frontend.s3-website.us-east-2.amazonaws.com/) for the frontend application.
+The links for the Frontend and the API are no longer up, feel free to compile the application.
 
 ## AWS Screenshots
 
