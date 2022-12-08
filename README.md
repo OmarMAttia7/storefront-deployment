@@ -10,7 +10,7 @@ This was originally a submission for Udacity's Full-Stack Advanced Web Developme
 - [CircleCI Screenshots](#circleci-screenshots)
 - [AWS Diagram](#aws-diagram)
 - [Pipeline Diagram](#pipeline-diagram)
-- [Docs] (#docs)
+- [Docs](#docs)
 
 ## Links
 
